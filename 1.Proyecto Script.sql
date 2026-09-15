@@ -3,14 +3,14 @@ use proyectosql;
 
 
 -- 1. Entidad: Categorías (Tabla Padre)
-CREATE TABLE Categorias (
+CREATE TABLE categorias (
     id_categoria INT AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(100) NOT NULL UNIQUE,
     descripcion TEXT
 );
 
--- 2. Entidad: Proveedores (Tabla Padre)
-CREATE TABLE Proveedores (
+-- 2. Entidad: proveedores (Tabla Padre)
+CREATE TABLE proveedores (
     id_proveedor INT AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(150) NOT NULL,
     email_contacto VARCHAR(150) UNIQUE,
@@ -18,7 +18,7 @@ CREATE TABLE Proveedores (
 );
 
 -- 3. Entidad: Clientes (Tabla Padre)
-CREATE TABLE Clientes (
+CREATE TABLE clientes (
     id_cliente INT AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(100) NOT NULL,
     apellido VARCHAR(100) NOT NULL,
@@ -29,7 +29,7 @@ CREATE TABLE Clientes (
 );
 
 -- 4. Entidad: Productos (Tabla Hija de Categorías y Proveedores)
-CREATE TABLE Productos (
+CREATE TABLE productos (
     id_producto INT AUTO_INCREMENT PRIMARY KEY,
     id_categoria INT NOT NULL,
     id_proveedor INT NOT NULL,
@@ -41,29 +41,29 @@ CREATE TABLE Productos (
     sku VARCHAR(50) NOT NULL UNIQUE,
     fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     activo BOOLEAN DEFAULT TRUE,
-    FOREIGN KEY (id_categoria) REFERENCES Categorias(id_categoria),
-    FOREIGN KEY (id_proveedor) REFERENCES Proveedores(id_proveedor)
+    FOREIGN KEY (id_categoria) REFERENCES categorias(id_categoria),
+    FOREIGN KEY (id_proveedor) REFERENCES proveedores(id_proveedor)
 );
 
 -- 5. Entidad: Ventas (Tabla Hija de Clientes)
-CREATE TABLE Ventas (
+CREATE TABLE ventas (
     id_venta INT AUTO_INCREMENT PRIMARY KEY,
     id_cliente INT NOT NULL,
     fecha_venta TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     estado ENUM('Pendiente de Pago', 'Procesando', 'Enviado', 'Entregado', 'Cancelado') NOT NULL,
     total DECIMAL(12,2) DEFAULT 0.00, -- Se actualizará mediante triggers o SPs
-    FOREIGN KEY (id_cliente) REFERENCES Clientes(id_cliente)
+    FOREIGN KEY (id_cliente) REFERENCES clientes(id_cliente)
 );
 
 -- 6. Entidad: Detalle de Ventas (Tabla Puente / Hija de Ventas y Productos)
-CREATE TABLE Detalle_Ventas (
+CREATE TABLE detalle_ventas (
     id_detalle INT AUTO_INCREMENT PRIMARY KEY,
     id_venta INT NOT NULL,
     id_producto INT NOT NULL,
     cantidad INT NOT NULL CHECK (cantidad > 0),
     precio_unitario_congelado DECIMAL(10,2) NOT NULL,
-    FOREIGN KEY (id_venta) REFERENCES Ventas(id_venta) ON DELETE CASCADE,
-    FOREIGN KEY (id_producto) REFERENCES Productos(id_producto)
+    FOREIGN KEY (id_venta) REFERENCES ventas(id_venta) ON DELETE CASCADE,
+    FOREIGN KEY (id_producto) REFERENCES productos(id_producto)
 );
 
 

@@ -5,7 +5,7 @@ use proyectosql;
 -- ==============================================================================
 
 -- 1. Categorías (5 registros)
-INSERT INTO Categorias (nombre, descripcion) VALUES
+INSERT INTO categorias (nombre, descripcion) VALUES
 ('Electrónica', 'Dispositivos tecnológicos, computadoras y accesorios'),
 ('Ropa y Accesorios', 'Prendas de vestir para hombre y mujer, zapatos'),
 ('Hogar y Cocina', 'Muebles, electrodomésticos y decoración'),
@@ -13,7 +13,7 @@ INSERT INTO Categorias (nombre, descripcion) VALUES
 ('Juguetes', 'Juegos de mesa, figuras de acción y juguetes didácticos');
 
 -- 2. Proveedores (5 registros)
-INSERT INTO Proveedores (nombre, email_contacto, telefono_contacto) VALUES
+INSERT INTO proveedores (nombre, email_contacto, telefono_contacto) VALUES
 ('TechDistributor Latam', 'ventas@techdistributor.com', '+573001234567'),
 ('Moda Mayorista SAS', 'contacto@modamayorista.co', '+573109876543'),
 ('HomeGoods Inc', 'importaciones@homegoods.com', '+573155554444'),
@@ -21,7 +21,7 @@ INSERT INTO Proveedores (nombre, email_contacto, telefono_contacto) VALUES
 ('FunToys Supplier', 'pedidos@funtoys.com', '+573112223344');
 
 -- 3. Clientes (10 registros con diferentes fechas de registro para análisis de cohortes)
-INSERT INTO Clientes (nombre, apellido, email, contraseña, direccion_envio, fecha_registro) VALUES
+INSERT INTO clientes (nombre, apellido, email, contraseña, direccion_envio, fecha_registro) VALUES
 ('Carlos', 'Ramírez', 'carlos.ramirez@email.com', 'hash_pwd_1', 'Calle 45 # 12-34, Bogotá', '2025-06-15 10:00:00'),
 ('Ana', 'Gómez', 'ana.gomez@email.com', 'hash_pwd_2', 'Cra 27 # 9-15, Bucaramanga', '2025-07-20 14:30:00'),
 ('Luis', 'Fernández', 'luis.fernandez@email.com', 'hash_pwd_3', 'Av Poblado # 43-2, Medellín', '2025-08-05 09:15:00'),
@@ -34,7 +34,7 @@ INSERT INTO Clientes (nombre, apellido, email, contraseña, direccion_envio, fec
 ('Valentina', 'Díaz', 'valentina.diaz@email.com', 'hash_pwd_10', 'Cra 45 # 20-15, Barranquilla', '2026-05-20 10:45:00');
 
 -- 4. Productos (20 registros con variedad de precios y stocks)
-INSERT INTO Productos (id_categoria, id_proveedor, nombre, descripcion, precio, costo, stock, sku, fecha_creacion, activo) VALUES
+INSERT INTO productos (id_categoria, id_proveedor, nombre, descripcion, precio, costo, stock, sku, fecha_creacion, activo) VALUES
 -- Electrónica
 (1, 1, 'Laptop Pro 15', 'Computadora portátil de alto rendimiento', 1200.00, 900.00, 15, 'ELEC-LAP-001', '2025-05-01 08:00:00', TRUE),
 (1, 1, 'Smartphone X', 'Teléfono inteligente con cámara de 108MP', 800.00, 600.00, 30, 'ELEC-PHO-002', '2025-05-01 08:00:00', TRUE),
@@ -62,7 +62,7 @@ INSERT INTO Productos (id_categoria, id_proveedor, nombre, descripcion, precio, 
 (5, 5, 'Muñeca Coleccionable', 'Edición especial limitada', 150.00, 80.00, 2, 'JUG-MUN-004', '2025-12-10 08:00:00', TRUE); -- Stock crítico intencional
 
 -- 5. Ventas (15 transacciones, algunas con múltiples productos. Los totales son precisos)
-INSERT INTO Ventas (id_cliente, fecha_venta, estado, total) VALUES
+INSERT INTO ventas (id_cliente, fecha_venta, estado, total) VALUES
 (1, '2025-07-01 10:30:00', 'Entregado', 1200.00), -- Venta 1
 (2, '2025-08-15 14:20:00', 'Entregado', 650.00),  -- Venta 2
 (3, '2025-09-10 09:45:00', 'Entregado', 105.00),  -- Venta 3
@@ -80,7 +80,7 @@ INSERT INTO Ventas (id_cliente, fecha_venta, estado, total) VALUES
 (3, '2026-09-05 10:15:00', 'Pendiente de Pago', 70.00);   -- Venta 15 (Compra repetida)
 
 -- 6. Detalle_Ventas (30 registros que enlazan ventas con productos respetando los precios)
-INSERT INTO Detalle_Ventas (id_venta, id_producto, cantidad, precio_unitario_congelado) VALUES
+INSERT INTO detalle_ventas (id_venta, id_producto, cantidad, precio_unitario_congelado) VALUES
 -- Venta 1 (Total: 1200)
 (1, 1, 1, 1200.00), -- Laptop
 -- Venta 2 (Total: 650)
